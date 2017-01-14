@@ -35,21 +35,23 @@ $(".numpad").click(function(){
 
 $(".operand").click(function(){
   var input = $(this).html();
-
   operand = operandfnc(input);
-
 });
 
 function operandfnc(symbol){
   operand = symbol.replace("x", "*").replace("%", "/");
   $screen.html(num1.join('') + operand);
+  return operand;
 };
 
 $("#equals").click(function(){
-  var result = null;
+  var result = null,
+  //Uses unary operator + to convert first string in array to a number
+      n1 = +num1,
+      n2 = +num2;
   switch (operand){
     case '+':
-      result = num1[0] + num2[0];
+      result = n1 + n2;
       break;
     }
     $screen.html(result);
