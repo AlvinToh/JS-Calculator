@@ -4,23 +4,6 @@ var num1 = [],
     operand = null;
     solved = false;
 
-
-var add = function(num1, num2){
-  return num1 + num2;
-}
-
-var multiply = function(num1, num2){
-  return num1 * num2;
-}
-
-var minus = function(num1, num2){
-  return num1 - num2;
-}
-
-var divide = function(num1, num2){
-  return num1 / num2;
-}
-
 $(".numpad").click(function(){
     var input = $(this).html();
 
@@ -35,6 +18,12 @@ $(".numpad").click(function(){
 
 $(".operand").click(function(){
   var input = $(this).html();
+  //if solved need to reset num2 array and also solved and operand variable
+  if(solved){
+    num2 = [];
+    operand = null;
+    solved = false;
+  }
   operand = operandfnc(input);
 });
 
@@ -45,14 +34,35 @@ function operandfnc(symbol){
 };
 
 $("#equals").click(function(){
+  //num1.join('') will convert array of elements into 1 string
+  //Uses unary operator + to convert string into number
   var result = null,
-  //Uses unary operator + to convert first string in array to a number
-      n1 = +num1,
-      n2 = +num2;
+      n1 = +num1.join(''),
+      n2 = +num2.join('');
   switch (operand){
     case '+':
       result = n1 + n2;
       break;
+    case '-':
+      result = n1 - n2;
+      break;
+    case '/':
+      result = n1 / n2;
+      break;
+    case '*':
+      result = n1 * n2;
+      break;
     }
     $screen.html(result);
+    num1 = [result];
+    num2 = [n2];
+    solved = true;
+});
+
+$("#clear").click(function(){
+    num1 = [];
+    mum2 = [];
+    operand = null;
+    solved = false;
+    $screen.html(0);
 });
